@@ -14,8 +14,13 @@ SOLANA_NATIVE_TOKEN = "11111111111111111111111111111111"
 
 
 class ChainId(IntEnum):
-    """deBridge internal chain ids (note: differ from native chain ids for some
-    chains, e.g. Solana). Values verified live against ``/supported-chains-info``.
+    """deBridge internal chain ids for every supported chain.
+
+    These are deBridge's *internal* ids, which differ from the chains' native
+    ids for non-EVM/L2 chains (e.g. Solana is 7565164, and several chains use a
+    ``1e8 + nativeId`` offset). Plain ``int`` values are accepted everywhere the
+    client takes a chain id; this enum is just a convenience. Values verified
+    live against ``GET /supported-chains-info`` (19 chains).
     """
 
     ETHEREUM = 1
@@ -27,6 +32,16 @@ class ChainId(IntEnum):
     AVALANCHE = 43114
     LINEA = 59144
     SOLANA = 7565164
+    FLOW = 100000009
+    STORY = 100000013
+    CRONOS = 100000019
+    HYPEREVM = 100000022
+    MANTLE = 100000023
+    TRON = 100000026
+    SEI = 100000027
+    INJECTIVE = 100000029
+    MONAD = 100000030
+    MEGAETH = 100000031
 
 
 #: Order statuses that ``poll_status`` treats as final by default. ``Fulfilled``
