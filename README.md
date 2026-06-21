@@ -1,6 +1,9 @@
 # debridge-py
 
 [![CI](https://github.com/robertruben98/debridge-py/actions/workflows/ci.yml/badge.svg)](https://github.com/robertruben98/debridge-py/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/debridge-py.svg)](https://pypi.org/project/debridge-py/)
+[![Python versions](https://img.shields.io/pypi/pyversions/debridge-py.svg)](https://pypi.org/project/debridge-py/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/robertruben98/debridge-py/blob/main/LICENSE)
 
 Typed Python client for the [deBridge DLN](https://docs.debridge.com/) cross-chain
 swap/order API. Works across EVM chains and Solana (19+ chains), sync **and** async,
@@ -109,6 +112,9 @@ ruff check . && ruff format --check .
 mypy
 ```
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor workflow and
+[CHANGELOG.md](CHANGELOG.md) for release history.
+
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
