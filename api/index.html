@@ -1,0 +1,4081 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python client for the deBridge DLN API — cross-chain swaps/orders across 19+ chains (EVM + Solana). Sync + async, Pydantic v2.">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>API reference - debridge-py</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="debridge-py" class="md-header__button md-logo" aria-label="debridge-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            debridge-py
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/robertruben98/debridge-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    robertruben98/debridge-py
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="debridge-py" class="md-nav__button md-logo" aria-label="debridge-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    debridge-py
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/robertruben98/debridge-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    robertruben98/debridge-py
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#debridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        debridge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="debridge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeAPIError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DebridgeAPIError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DebridgeError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AsyncDebridgeClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncDebridgeClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.aclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        aclose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.__aenter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __aenter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.__aexit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __aexit__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_supported_chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_supported_chains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_token_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_token_list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.create_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_order_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.poll_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        poll_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DebridgeClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DebridgeClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        close
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.__enter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __enter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.__exit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __exit__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_supported_chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_supported_chains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_token_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_token_list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.create_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_order_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.poll_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        poll_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.CreateOrderResponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CreateOrderResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.Estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estimation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.OrderDetails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OrderDetails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.OrderStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OrderStatus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.SupportedChain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SupportedChain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.SupportedChainsResponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SupportedChainsResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.TokenInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TokenInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.TokenListResponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TokenListResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.Transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#debridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        debridge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="debridge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeAPIError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DebridgeAPIError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DebridgeError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AsyncDebridgeClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AsyncDebridgeClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.aclose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        aclose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.__aenter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __aenter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.__aexit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __aexit__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_supported_chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_supported_chains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_token_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_token_list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.create_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_order_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.get_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.AsyncDebridgeClient.poll_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        poll_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DebridgeClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DebridgeClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.__init__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __init__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        close
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.__enter__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __enter__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.__exit__" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        __exit__
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_supported_chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_supported_chains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_token_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_token_list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.create_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        create_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_order_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.get_order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.DebridgeClient.poll_status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        poll_status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.CreateOrderResponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CreateOrderResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.Estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estimation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.OrderDetails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OrderDetails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.OrderStatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OrderStatus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.SupportedChain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SupportedChain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.SupportedChainsResponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SupportedChainsResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.TokenInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TokenInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.TokenListResponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TokenListResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debridge.Transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API reference</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="debridge" class="doc doc-heading">
+            <code>debridge</code>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Typed Python client for the deBridge DLN cross-chain swap/order API.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.DebridgeAPIError" class="doc doc-heading">
+            <code>DebridgeAPIError</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="DebridgeError (debridge._errors.DebridgeError)" href="#debridge.DebridgeError">DebridgeError</a></code></p>
+
+
+
+        <p>Raised when the deBridge API returns an error response.</p>
+<p>The DLN API signals errors with a JSON body of the shape
+<code>{"errorCode", "errorId", "errorMessage", "reqId"}</code>. Crucially, errors are
+surfaced in <strong>two</strong> ways:</p>
+<ul>
+<li>a non-2xx HTTP status (e.g. <code>400 INVALID_QUERY_PARAMETERS</code> /
+  <code>UNKNOWN_ORDER</code>), and</li>
+<li>an HTTP <strong>200</strong> response whose body nonetheless carries an <code>errorId</code>
+  (e.g. <code>COMPLIANCE_ADDRESS_BLOCKED</code>).</li>
+</ul>
+<p>The client detects both, so callers should rely on catching this exception
+rather than inspecting the HTTP status code themselves.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="debridge.DebridgeAPIError.error_id">error_id</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The API's <code>errorId</code> string (e.g. <code>"UNKNOWN_ORDER"</code>), or
+<code>None</code> if the response carried no error id.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="debridge.DebridgeAPIError.error_code">error_code</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The numeric <code>errorCode</code>, or <code>None</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="debridge.DebridgeAPIError.message">message</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The <code>errorMessage</code> text, falling back to <code>"HTTP &lt;status&gt;"</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="debridge.DebridgeAPIError.req_id">req_id</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The API's <code>reqId</code> (useful for support tickets), or <code>None</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="debridge.DebridgeAPIError.status_code">status_code</span></code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The HTTP status code of the response (may be <code>200</code>).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <p>Example::</p>
+<div class="highlight"><pre><span></span><code>from debridge import DebridgeClient, DebridgeAPIError
+
+with DebridgeClient() as client:
+    try:
+        client.get_order_status(&quot;0xnot-an-order&quot;)
+    except DebridgeAPIError as exc:
+        print(exc.error_id, exc.status_code)  # &#39;UNKNOWN_ORDER&#39; 400
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.DebridgeError" class="doc doc-heading">
+            <code>DebridgeError</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="Exception">Exception</span></code></p>
+
+
+
+        <p>Base class for all errors raised by this library.</p>
+<p>Catch this to handle any failure originating from <code>debridge</code> (currently
+just :class:<code>DebridgeAPIError</code>). Network-level failures from the underlying
+<code>httpx</code> client propagate as <code>httpx</code> exceptions and are not wrapped.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.AsyncDebridgeClient" class="doc doc-heading">
+            <code>AsyncDebridgeClient</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.client._BaseClient">_BaseClient</span></code></p>
+
+
+
+        <p>Asynchronous counterpart of :class:<code>DebridgeClient</code>.</p>
+<p>Exposes the same endpoints as coroutines, backed by <code>httpx.AsyncClient</code>.
+Use it as an async context manager so the connection pool is closed for you;
+otherwise call :meth:<code>aclose</code>.</p>
+<p>Example::</p>
+<div class="highlight"><pre><span></span><code>import asyncio
+from debridge import AsyncDebridgeClient
+
+async def main():
+    async with AsyncDebridgeClient() as client:
+        chains = await client.get_supported_chains()
+        print(len(chains.chains))
+
+asyncio.run(main())
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">DEFAULT_BASE_URL</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create an asynchronous client.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>base_url</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DLN API base URL. Defaults to the public endpoint
+(:data:<code>debridge.constants.DEFAULT_BASE_URL</code>); a trailing slash
+is tolerated.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="debridge.constants.DEFAULT_BASE_URL">DEFAULT_BASE_URL</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>timeout</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Per-request timeout in seconds, applied when this client
+creates its own <code>httpx.AsyncClient</code>. Ignored if <code>client</code> is
+given.</p>
+              </div>
+            </td>
+            <td>
+                  <code>30.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>client</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="httpx.AsyncClient">AsyncClient</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An existing <code>httpx.AsyncClient</code> to reuse. When supplied,
+the caller owns its lifecycle and :meth:<code>aclose</code> will not close
+it.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.aclose" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">aclose</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Close the underlying async HTTP client.</p>
+<p>No-op when an external <code>httpx.AsyncClient</code> was injected via the
+constructor (the caller owns that client's lifecycle).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.__aenter__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__aenter__</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Enter the async runtime context and return this client.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.__aexit__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__aexit__</span><span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">tb</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Exit the async runtime context, closing the client via :meth:<code>aclose</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.get_supported_chains" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_supported_chains</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the chains the DLN currently supports.</p>
+<p>Calls <code>GET /supported-chains-info</code>.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="SupportedChainsResponse (debridge.models.SupportedChainsResponse)" href="#debridge.SupportedChainsResponse">SupportedChainsResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>SupportedChainsResponse</code> listing every supported chain.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the API returns an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.get_token_list" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_token_list</span><span class="p">(</span><span class="n">chain_id</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the tradable token list for a chain.</p>
+<p>Calls <code>GET /token-list</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>chain_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>deBridge chain id (an <code>int</code> or a
+:class:<code>debridge.constants.ChainId</code> member).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="TokenListResponse (debridge.models.TokenListResponse)" href="#debridge.TokenListResponse">TokenListResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>TokenListResponse</code> mapping token address to metadata.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the API returns an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.create_order" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">create_order</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">src_chain_id</span><span class="p">,</span> <span class="n">src_chain_token_in</span><span class="p">,</span> <span class="n">src_chain_token_in_amount</span><span class="p">,</span> <span class="n">dst_chain_id</span><span class="p">,</span> <span class="n">dst_chain_token_out</span><span class="p">,</span> <span class="n">dst_chain_token_out_recipient</span><span class="p">,</span> <span class="n">sender_address</span><span class="p">,</span> <span class="n">dst_chain_token_out_amount</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">src_chain_order_authority_address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst_chain_order_authority_address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">referral_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">affiliate_fee_percent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">affiliate_fee_recipient</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prepend_operating_expenses</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Quote and build a cross-chain order plus its source-chain transaction.</p>
+<p>Async equivalent of :meth:<code>DebridgeClient.create_order</code>; see that method
+for full argument and return documentation and EVM/Solana examples.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Source chain id (int or <code>ChainId</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_token_in</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input token address on the source chain.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_token_in_amount</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input amount in the token's smallest unit.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Destination chain id (int or <code>ChainId</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_token_out</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output token address on the destination chain.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_token_out_recipient</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Address that receives the output.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sender_address</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Address sending the source transaction.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_token_out_amount</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Desired output amount, or <code>"auto"</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;auto&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_order_authority_address</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Source-chain order authority;
+defaults to <code>sender_address</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_order_authority_address</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Destination-chain order authority;
+defaults to <code>dst_chain_token_out_recipient</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>referral_code</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional integer referral code.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>affiliate_fee_percent</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional affiliate fee percentage.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>affiliate_fee_recipient</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Address that receives the affiliate fee.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>prepend_operating_expenses</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="bool">bool</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Add operating expenses on top of the
+input instead of deducting from the output.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>extra</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional raw query params, merged last.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="CreateOrderResponse (debridge.models.CreateOrderResponse)" href="#debridge.CreateOrderResponse">CreateOrderResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>CreateOrderResponse</code> with the quote, unsigned <code>tx</code>, and</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="CreateOrderResponse (debridge.models.CreateOrderResponse)" href="#debridge.CreateOrderResponse">CreateOrderResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the resulting <code>order_id</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the API rejects the request (including HTTP-200
+compliance blocks).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.get_order_status" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_order_status</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the lightweight status of an order.</p>
+<p>Calls <code>GET /dln/order/{id}/status</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The order id (0x-hex).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>An</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderStatus (debridge.models.OrderStatus)" href="#debridge.OrderStatus">OrderStatus</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>OrderStatus</code> with the current <code>status</code> string.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the order is unknown or the id is malformed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.get_order" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch full order details, including the decoded order struct.</p>
+<p>Calls <code>GET /dln/order/{id}</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The order id (0x-hex).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>An</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderDetails (debridge.models.OrderDetails)" href="#debridge.OrderDetails">OrderDetails</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>OrderDetails</code> with status, external-call state, and the</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderDetails (debridge.models.OrderDetails)" href="#debridge.OrderDetails">OrderDetails</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>on-chain :class:<code>debridge.models.OrderStruct</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the order is unknown or the id is malformed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.AsyncDebridgeClient.poll_status" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">poll_status</span><span class="p">(</span><span class="n">order_id</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">600.0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Poll an order's status until it reaches a terminal state.</p>
+<p>Async equivalent of :meth:<code>DebridgeClient.poll_status</code>; awaits
+:meth:<code>get_order_status</code> and sleeps via <code>asyncio.sleep</code> between checks.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The order id to poll.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>interval</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Seconds to wait between polls. <code>0</code> polls without
+sleeping (useful in tests).</p>
+              </div>
+            </td>
+            <td>
+                  <code>5.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>timeout</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum total seconds to wait before giving up.</p>
+              </div>
+            </td>
+            <td>
+                  <code>600.0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderStatus (debridge.models.OrderStatus)" href="#debridge.OrderStatus">OrderStatus</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The terminal :class:<code>OrderStatus</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="TimeoutError">TimeoutError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If no terminal state is reached within <code>timeout</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a status request fails.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <p>Example::</p>
+<div class="highlight"><pre><span></span><code>final = await client.poll_status(order.order_id, interval=5, timeout=600)
+print(final.status)  # e.g. &quot;Fulfilled&quot;
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.DebridgeClient" class="doc doc-heading">
+            <code>DebridgeClient</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.client._BaseClient">_BaseClient</span></code></p>
+
+
+
+        <p>Synchronous client for the deBridge DLN API.</p>
+<p>Wraps the public DLN endpoints (quotes, order creation, status) with typed
+requests and responses. Every method raises :class:<code>DebridgeAPIError</code> on an
+API error (including HTTP-200 error bodies such as compliance blocks).</p>
+<p>Use it as a context manager so the underlying <code>httpx</code> connection pool is
+closed for you; otherwise call :meth:<code>close</code> when done.</p>
+<p>Example::</p>
+<div class="highlight"><pre><span></span><code>from debridge import DebridgeClient
+from debridge.constants import ChainId
+
+with DebridgeClient() as client:
+    chains = client.get_supported_chains()
+    order = client.create_order(
+        src_chain_id=ChainId.BASE,
+        src_chain_token_in=&quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot;,
+        src_chain_token_in_amount=&quot;10000000&quot;,
+        dst_chain_id=ChainId.ARBITRUM,
+        dst_chain_token_out=&quot;0xaf88d065e77c8cC2239327C5EDb3A432268e5831&quot;,
+        dst_chain_token_out_recipient=&quot;0xYourRecipient&quot;,
+        sender_address=&quot;0xYourSender&quot;,
+    )
+    final = client.poll_status(order.order_id)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">DEFAULT_BASE_URL</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Create a synchronous client.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>base_url</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DLN API base URL. Defaults to the public endpoint
+(:data:<code>debridge.constants.DEFAULT_BASE_URL</code>); a trailing slash
+is tolerated. Point this at a compatible proxy if needed.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="debridge.constants.DEFAULT_BASE_URL">DEFAULT_BASE_URL</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>timeout</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Per-request timeout in seconds, applied when this client
+creates its own <code>httpx.Client</code>. Ignored if <code>client</code> is given.</p>
+              </div>
+            </td>
+            <td>
+                  <code>30.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>client</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="httpx.Client">Client</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An existing <code>httpx.Client</code> to reuse. When supplied, the
+caller owns its lifecycle and :meth:<code>close</code> will not close it.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.close" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">close</span><span class="p">()</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Close the underlying HTTP client.</p>
+<p>No-op when an external <code>httpx.Client</code> was injected via the
+constructor (the caller owns that client's lifecycle).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.__enter__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__enter__</span><span class="p">()</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Enter the runtime context and return this client.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.__exit__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__exit__</span><span class="p">(</span><span class="n">exc_type</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">tb</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Exit the runtime context, closing the client via :meth:<code>close</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.get_supported_chains" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_supported_chains</span><span class="p">()</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the chains the DLN currently supports.</p>
+<p>Calls <code>GET /supported-chains-info</code>.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="SupportedChainsResponse (debridge.models.SupportedChainsResponse)" href="#debridge.SupportedChainsResponse">SupportedChainsResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>SupportedChainsResponse</code> listing every supported chain.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the API returns an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.get_token_list" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_token_list</span><span class="p">(</span><span class="n">chain_id</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the tradable token list for a chain.</p>
+<p>Calls <code>GET /token-list</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>chain_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>deBridge chain id (an <code>int</code> or a
+:class:<code>debridge.constants.ChainId</code> member).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="TokenListResponse (debridge.models.TokenListResponse)" href="#debridge.TokenListResponse">TokenListResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>TokenListResponse</code> mapping token address to metadata.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the API returns an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.create_order" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">create_order</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">src_chain_id</span><span class="p">,</span> <span class="n">src_chain_token_in</span><span class="p">,</span> <span class="n">src_chain_token_in_amount</span><span class="p">,</span> <span class="n">dst_chain_id</span><span class="p">,</span> <span class="n">dst_chain_token_out</span><span class="p">,</span> <span class="n">dst_chain_token_out_recipient</span><span class="p">,</span> <span class="n">sender_address</span><span class="p">,</span> <span class="n">dst_chain_token_out_amount</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">src_chain_order_authority_address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dst_chain_order_authority_address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">referral_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">affiliate_fee_percent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">affiliate_fee_recipient</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">prepend_operating_expenses</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Quote and build a cross-chain order plus its source-chain transaction.</p>
+<p>Calls <code>GET /dln/order/create-tx</code>. Works for both EVM and Solana source
+chains; the returned <code>tx</code> carries <code>to</code>/<code>value</code> for EVM sources and
+only <code>data</code> for Solana (see :class:<code>debridge.models.Transaction</code>).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Source chain id (int or <code>ChainId</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_token_in</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input token address on the source chain
+(0x-hex for EVM, base58 mint for Solana; native sentinels in
+:mod:<code>debridge.constants</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_token_in_amount</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Input amount in the token's smallest unit.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Destination chain id (int or <code>ChainId</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_token_out</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output token address on the destination chain.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_token_out_recipient</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Address that receives the output.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sender_address</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Address sending the source transaction.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_token_out_amount</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Desired output amount, or <code>"auto"</code>
+(default) to let the API quote the best available output.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;auto&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>src_chain_order_authority_address</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Authority that can patch/cancel on
+the source chain. Defaults to <code>sender_address</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>dst_chain_order_authority_address</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Authority on the destination
+chain. Defaults to <code>dst_chain_token_out_recipient</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>referral_code</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional integer referral code.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>affiliate_fee_percent</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional affiliate fee percentage to charge.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>affiliate_fee_recipient</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Address that receives the affiliate fee.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>prepend_operating_expenses</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="bool">bool</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Whether to add operating expenses on top
+of the input amount instead of deducting them from the output.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>extra</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional raw query params, merged last (escape hatch for
+params not yet modelled here).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>A</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="CreateOrderResponse (debridge.models.CreateOrderResponse)" href="#debridge.CreateOrderResponse">CreateOrderResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>CreateOrderResponse</code> with the quote, the unsigned <code>tx</code>,</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="CreateOrderResponse (debridge.models.CreateOrderResponse)" href="#debridge.CreateOrderResponse">CreateOrderResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>and the resulting <code>order_id</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the API rejects the request (e.g. unsupported
+chain, blocked address) — including HTTP-200 compliance blocks.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <p>EVM -&gt; EVM (10 USDC on Base to USDC on Arbitrum)::</p>
+<div class="highlight"><pre><span></span><code>order = client.create_order(
+    src_chain_id=ChainId.BASE,
+    src_chain_token_in=&quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot;,
+    src_chain_token_in_amount=&quot;10000000&quot;,
+    dst_chain_id=ChainId.ARBITRUM,
+    dst_chain_token_out=&quot;0xaf88d065e77c8cC2239327C5EDb3A432268e5831&quot;,
+    dst_chain_token_out_recipient=&quot;0xRecipient&quot;,
+    sender_address=&quot;0xSender&quot;,
+)
+print(order.tx.to, order.tx.value)  # EVM call to sign &amp; send
+</code></pre></div>
+<p>EVM -&gt; Solana (Base USDC to USDC on Solana)::</p>
+<div class="highlight"><pre><span></span><code>order = client.create_order(
+    src_chain_id=ChainId.BASE,
+    src_chain_token_in=&quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot;,
+    src_chain_token_in_amount=&quot;10000000&quot;,
+    dst_chain_id=ChainId.SOLANA,
+    dst_chain_token_out=&quot;EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&quot;,
+    dst_chain_token_out_recipient=&quot;GZ1WYUw1...&quot;,  # base58 address
+    sender_address=&quot;0xSender&quot;,
+)
+# Output recipient is on Solana; tx is still an EVM call (source
+# is Base). For a Solana *source*, order.tx.to/value are None and
+# order.tx.data is the serialized versioned tx as hex.
+</code></pre></div>
+</details>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.get_order_status" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_order_status</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the lightweight status of an order.</p>
+<p>Calls <code>GET /dln/order/{id}/status</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The order id (0x-hex), e.g. from
+:attr:<code>CreateOrderResponse.order_id</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>An</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderStatus (debridge.models.OrderStatus)" href="#debridge.OrderStatus">OrderStatus</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>OrderStatus</code> with the current <code>status</code> string.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the order is unknown or the id is malformed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.get_order" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch full order details, including the decoded order struct.</p>
+<p>Calls <code>GET /dln/order/{id}</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The order id (0x-hex).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>An</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderDetails (debridge.models.OrderDetails)" href="#debridge.OrderDetails">OrderDetails</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>OrderDetails</code> with status, external-call state, and the</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+<td></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderDetails (debridge.models.OrderDetails)" href="#debridge.OrderDetails">OrderDetails</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>on-chain :class:<code>debridge.models.OrderStruct</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the order is unknown or the id is malformed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="debridge.DebridgeClient.poll_status" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">poll_status</span><span class="p">(</span><span class="n">order_id</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">600.0</span><span class="p">)</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Poll an order's status until it reaches a terminal state.</p>
+<p>Repeatedly calls :meth:<code>get_order_status</code>, sleeping <code>interval</code> seconds
+between checks, until the status is in
+:data:<code>debridge.constants.TERMINAL_STATUSES</code> (e.g. <code>"Fulfilled"</code>).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>order_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The order id to poll.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>interval</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Seconds to wait between polls. <code>0</code> polls without
+sleeping (useful in tests).</p>
+              </div>
+            </td>
+            <td>
+                  <code>5.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>timeout</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum total seconds to wait before giving up.</p>
+              </div>
+            </td>
+            <td>
+                  <code>600.0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="OrderStatus (debridge.models.OrderStatus)" href="#debridge.OrderStatus">OrderStatus</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The terminal :class:<code>OrderStatus</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="TimeoutError">TimeoutError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If no terminal state is reached within <code>timeout</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DebridgeAPIError (debridge._errors.DebridgeAPIError)" href="#debridge.DebridgeAPIError">DebridgeAPIError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If a status request fails.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <p>Example::</p>
+<div class="highlight"><pre><span></span><code># After broadcasting order.tx on the source chain:
+final = client.poll_status(order.order_id, interval=5, timeout=600)
+print(final.status)  # e.g. &quot;Fulfilled&quot;
+</code></pre></div>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.CreateOrderResponse" class="doc doc-heading">
+            <code>CreateOrderResponse</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>Full response of <code>GET /dln/order/create-tx</code>.</p>
+<p>Bundles the quote (:attr:<code>estimation</code>), the unsigned source-chain
+:attr:<code>tx</code> to broadcast, the resulting :attr:<code>order_id</code>, and fee details.
+The same shape is returned for EVM and Solana sources; only :attr:<code>tx</code>
+varies (see :class:<code>Transaction</code>).</p>
+<p>Example::</p>
+<div class="highlight"><pre><span></span><code>order = client.create_order(...)
+print(order.order_id)
+print(order.estimation.dst_chain_token_out.amount)  # expected output
+print(order.tx.to, order.tx.value, order.tx.data)   # tx to sign &amp; send
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.Estimation" class="doc doc-heading">
+            <code>Estimation</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>The quote portion of a create-order response: legs, costs, and slippage.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.OrderDetails" class="doc doc-heading">
+            <code>OrderDetails</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>Full order detail from <code>GET /dln/order/{id}</code> — status plus the order struct.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.OrderStatus" class="doc doc-heading">
+            <code>OrderStatus</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>Lightweight order status from <code>GET /dln/order/{id}/status</code>.</p>
+<p><code>status</code> is a string such as <code>"Created"</code>, <code>"Fulfilled"</code>,
+<code>"SentUnlock"</code>, <code>"ClaimedUnlock"</code>, <code>"OrderCancelled"</code> — see
+:data:<code>debridge.constants.TERMINAL_STATUSES</code> for the states treated as final.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.SupportedChain" class="doc doc-heading">
+            <code>SupportedChain</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>A single chain entry from <code>GET /supported-chains-info</code>.</p>
+<p>Note that deBridge's internal <code>chain_id</code> differs from the chain's native
+id for non-EVM/L2 chains (e.g. Solana is <code>7565164</code>). Use <code>chain_id</code> when
+talking to this API and <code>original_chain_id</code> to map back to the chain's
+canonical id.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.SupportedChainsResponse" class="doc doc-heading">
+            <code>SupportedChainsResponse</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>Response of <code>GET /supported-chains-info</code> — the list of supported chains.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.TokenInfo" class="doc doc-heading">
+            <code>TokenInfo</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>Metadata for one token, as returned by <code>GET /token-list</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.TokenListResponse" class="doc doc-heading">
+            <code>TokenListResponse</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>Response of <code>GET /token-list</code> — tokens keyed by their address.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="debridge.Transaction" class="doc doc-heading">
+            <code>Transaction</code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="debridge.models._Model">_Model</span></code></p>
+
+
+
+        <p>The transaction to broadcast on the source chain.</p>
+<p>For EVM sources, <code>to</code> and <code>value</code> are present (an EVM call). For Solana
+sources the API returns only <code>data</code> (the serialized versioned transaction
+encoded as a hex string), and <code>to</code>/<code>value</code> are <code>None</code>. Inspect which
+fields are set to decide how to sign and broadcast.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
