@@ -36,15 +36,15 @@ with DebridgeClient() as client:
     order = client.create_order(
         src_chain_id=ChainId.BASE,
         src_chain_token_in="0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-        src_chain_token_in_amount="10000000",          # 10 USDC (6 decimals)
+        src_chain_token_in_amount="10000000",  # 10 USDC (6 decimals)
         dst_chain_id=ChainId.ARBITRUM,
         dst_chain_token_out="0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
-        dst_chain_token_out_amount="auto",              # API quotes the output
+        dst_chain_token_out_amount="auto",  # API quotes the output
         dst_chain_token_out_recipient="0xYourRecipient",
         sender_address="0xYourSender",
     )
     print(order.estimation.dst_chain_token_out.amount)  # estimated output
-    print(order.tx.to, order.tx.value, order.tx.data)   # tx to sign & send
+    print(order.tx.to, order.tx.value, order.tx.data)  # tx to sign & send
 
     # 3. after broadcasting order.tx, poll until the order settles
     final = client.poll_status(order.order_id, interval=5, timeout=600)
@@ -57,10 +57,12 @@ with DebridgeClient() as client:
 import asyncio
 from debridge import AsyncDebridgeClient
 
+
 async def main():
     async with AsyncDebridgeClient() as client:
         chains = await client.get_supported_chains()
         print(len(chains.chains))
+
 
 asyncio.run(main())
 ```
